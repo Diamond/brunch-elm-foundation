@@ -2,16 +2,22 @@ module.exports = {
   files: {
     javascripts: {
       joinTo: {
-        'vendor.js': /^(?!app)/,
+        'vendor.js': /^vendor/,
         'app.js': /^app/
+      },
+      order: {
+        before: ['vendor/jquery.min.js', 'vendor/foundation.min.js']
       }
     },
     stylesheets: {
       joinTo: 'app.css'
     }
   },
+  conventions: {
+    ignored: [/elm-stuff/]
+  },
   plugins: {
-    babel: { presets: ['es2015'], ignore: [/elm/] },
+    babel: { presets: ['es2015'] },
     sass: {
       options: {
         includePaths: [
@@ -22,11 +28,12 @@ module.exports = {
     },
     elmBrunch: {
       elmFolder: 'elm',
-      mainModules: ['elm/App.elm']
+      mainModules: ['Main.elm'],
+      outputFolder: '../public/elm'
     }
   },
   paths: {
-    'watched': ['elm']
+    watched: ['app', 'test', 'vendor', 'elm']
   },
   npm: {
     globals: {
